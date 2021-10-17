@@ -1,0 +1,23 @@
+.wrapper {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.wrapper h1 {
+  color: green;
+}
+
+.wrapper button {
+  border-radius: 180px;
+  -webkit-box-shadow: 20px;
+  box-shadow: 20px;
+  margin: 10px;
+  padding: 20px;
+  font-size: 24px;
+  text-align: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: honeydew;
+}
+/*# sourceMappingURL=style.css.map */
