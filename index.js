@@ -1,20 +1,15 @@
 // クイズアプリ
 // クイズのコンテンツ
 const questions = [
-    {question:"Q1. 次の成分のうち不足していると腰痛のリスクが上がる成分はどれ？",choice:["鉄分","ビタミンD","ビタミンE"],ansewer:"ビタミンD"},
-    {question:"Q2. 次の食べ物のうち目の疲れの効果がある食べ物はどれ？",choice:["ブルーベリー","りんご","チョコレート"],ansewer:"ブルーベリー"},
-    {question:"Q3. 目の疲れ対策として効果が認められにくい対策は？",choice:["遠くの建物を見る","ホットタオルを目の上に置く","ブルーライトメガネを使用する"],ansewer:"ブルーライトメガネを使用する"},
-    {question:"Q4. 頭の重さはどれくらい？",choice:["5kg","7kg","10kg"],ansewer:"5kg"},
-    {question:"Q5. ３ヶ月以上続き、症状が強い腰痛の対策として不適切な対策は？",choice:["有酸素運動をする","安静にする","マインドフルネス"],ansewer:"安静にする"},
+    {question:"Q1. 次の成分のうち不足していると腰痛のリスクが上がる成分はどれ？",choice:["鉄分","ビタミンD","ビタミンE"],answer:"ビタミンD"},
+    {question:"Q2. 次の食べ物のうち目の疲れの効果がある食べ物はどれ？",choice:["ブルーベリー","りんご","チョコレート"],answer:"ブルーベリー"},
+    {question:"Q3. 目の疲れ対策として効果が認められにくい対策は？",choice:["遠くの建物を見る","ホットタオルを目の上に置く","ブルーライトメガネを使用する"],answer:"ブルーライトメガネを使用する"},
+    {question:"Q4. 頭の重さはどれくらい？",choice:["5kg","7kg","10kg"],answer:"5kg"},
+    {question:"Q5. ３ヶ月以上続き、症状が強い腰痛の対策として不適切な対策は？",choice:["有酸素運動をする","安静にする","マインドフルネス"],answer:"安静にする"},
 ];
 
 //質問文のテキストを代入 
 document.getElementById('questionContents').textContent =questions[0].question;
-
-// ボタンタグのテキストに配列を代入
-for(let i = 0;i<questions[0].choice.length; i++){
-    $btn[i].textContent = questions[0].choice[i];
-}
 
 //idからノードを取得
 const topWrapper = document.getElementById("top-wrapper");
@@ -23,33 +18,35 @@ const buttons = document.getElementById("buttons");
 // タグからノードを取得してオブジェクト生成
 const $btn = document.getElementsByTagName(`button`);
 
-//正誤オブジェクト作成
-const answer = {correct:"正解！",uncorrect:"不正解です。"};
-
-
+console.log($btn);
 // 変数作成 （「questions」のインデックス・ボタンオブジェクトのlength・最後に表示する点数）
 let questionIndex = 0;
 let buttonLength = $btn.length;
 let score = 0
 
+// ボタンタグのテキストに配列を代入
+for(let i = 0;i<questions[0].choice.length; i++){
+    $btn[i].textContent = questions[0].choice[i];
+}
+
+
 // 回答を選択するイベントで発火する関数
 for(let i = 0; i<buttonLength; i++){
     document.getElementsByTagName(`button`)[i].addEventListener(`click`,function(e){
-        result(e);　//正誤判定
+        result(e,questions);　//正誤判定
     });
 }
 
 // 正誤判定する関数
-function result(e){
-    if (questions[questionIndex].ansewer === e.target.textContent) {
+function result(e,questions){
+    if (questions[questionIndex].answer === e.target.textContent) {
         score++;
-        alert(answer.correct);
-        displayAnswer(answer.correct);
+        displayAnswer("正解！");
 
     } else {
-        alert(answer.uncorrect);
-        displayAnswer(answer.uncorrect);
-    }
+        displayAnswer(`不正解です。
+正解は「${questions[questionIndex].answer}」です。`);
+    } 
 };
 
 // 正誤をボタンの下にpタグで表示する関数
@@ -60,6 +57,7 @@ function displayAnswer(answer){
     topWrapper.appendChild(answerBox);
     answerBox.appendChild(p);
     p.appendChild(ansewerText);
+    alert(answer);
     reset(answerBox,p)
 }
 
@@ -68,24 +66,27 @@ function reset(answerBox,p){
     questionIndex++;
     //クイズ終了後に行う動作
     if (questionIndex === questions.length) {
+        //質問の部分に結果表示
         document.getElementById('questionContents').textContent 
         =`クイズは終了です。
         合計得点は${score}点です。`;
+        //選択肢のボタンを非表示
         buttons.style.display = 'none';
         while(answerBox.firstChild){
             answerBox.removeChild(answerBox.firstChild);
         }
+        //「最初からやり直す」ボタンの作成
         const newBtn = document.createElement('button');
         const newBtnText = document.createTextNode("最初からやり直す");
-        newBtn.appendChild(newBtnText);
+        newBtn.appendChild(newBtnText); //特定の親ノードの子ノードリストの末尾にノードを追加。
         topWrapper.appendChild(newBtn);
         newBtn.addEventListener('click',function(){//「最初からやり直す」ボタンを押した時のイベント
             questionIndex = 0;
             for(let i =0; i<$btn.length; i++){
-                $btn[i].style.display= 'block';
+                $btn[i].style.display= 'block';//ボタン表示
             }
             buttons.style.display = 'flex';
-            topWrapper.removeChild(newBtn);
+            topWrapper.removeChild(newBtn);////「最初からやり直す」ボタンの削除
             textIn();
             score =0;
         })
@@ -101,7 +102,6 @@ function textIn(){
     $btn[i].textContent = questions[questionIndex].choice[i];
 }
 }
-
 
 
 
