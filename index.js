@@ -82,9 +82,6 @@ function reset(answerBox,p){
         $topWrapper.appendChild(newBtn);
         newBtn.addEventListener('click',function(){//「最初からやり直す」ボタンを押した時のイベント
             questionIndex = 0;
-            for(let i =0; i<$btn.length; i++){
-                $btn[i].style.display= 'block';//ボタン表示
-            }
             $buttons.style.display = 'flex';
             $buttons.style.justifyContent = 'center';
             $topWrapper.removeChild(newBtn);////「最初からやり直す」ボタンの削除

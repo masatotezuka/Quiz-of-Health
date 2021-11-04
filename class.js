@@ -1,3 +1,5 @@
+//クラスの理解
+//アプリとは無関係
 class Quiz{
     constructor(question,choice,answer){
         this.question = question;
