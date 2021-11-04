@@ -12,8 +12,8 @@ const questions = [
 document.getElementById('questionContents').textContent =questions[0].question;
 
 //idからノードを取得
-const topWrapper = document.getElementById("top-wrapper");
-const buttons = document.getElementById("buttons");
+const $topWrapper = document.getElementById("top-wrapper");
+const $buttons = document.getElementById("buttons");
 
 // タグからノードを取得してオブジェクト生成
 const $btn = document.getElementsByTagName(`button`);
@@ -54,7 +54,7 @@ function displayAnswer(answer){
     const answerBox = document.getElementById("answerBox");
     const p = document.createElement('p');
     const ansewerText = document.createTextNode(`第${questionIndex+1}問は${answer}`);
-    topWrapper.appendChild(answerBox);
+    $topWrapper.appendChild(answerBox);
     answerBox.appendChild(p);
     p.appendChild(ansewerText);
     alert(answer);
@@ -71,7 +71,7 @@ function reset(answerBox,p){
         =`クイズは終了です。
         合計得点は${score}点です。`;
         //選択肢のボタンを非表示
-        buttons.style.display = 'none';
+        $buttons.style.display = 'none';
         while(answerBox.firstChild){
             answerBox.removeChild(answerBox.firstChild);
         }
@@ -79,14 +79,15 @@ function reset(answerBox,p){
         const newBtn = document.createElement('button');
         const newBtnText = document.createTextNode("最初からやり直す");
         newBtn.appendChild(newBtnText); //特定の親ノードの子ノードリストの末尾にノードを追加。
-        topWrapper.appendChild(newBtn);
+        $topWrapper.appendChild(newBtn);
         newBtn.addEventListener('click',function(){//「最初からやり直す」ボタンを押した時のイベント
             questionIndex = 0;
             for(let i =0; i<$btn.length; i++){
                 $btn[i].style.display= 'block';//ボタン表示
             }
-            buttons.style.display = 'flex';
-            topWrapper.removeChild(newBtn);////「最初からやり直す」ボタンの削除
+            $buttons.style.display = 'flex';
+            $buttons.style.justifyContent = 'center';
+            $topWrapper.removeChild(newBtn);////「最初からやり直す」ボタンの削除
             textIn();
             score =0;
         })
@@ -107,7 +108,7 @@ function textIn(){
 
 
 
-// 演習
+// ここからはメモ
 // ノードの追加
 // function append(){
 //     const li = document.createElement('li');
