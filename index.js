@@ -13,20 +13,20 @@ document.getElementById('questionContents').textContent =questions[0].question;
 
 //idからノードを取得
 const $topWrapper = document.getElementById("top-wrapper");
-const $buttons = document.getElementById("buttons");
+const $buttonsWrapper = document.getElementById("buttons-wrapper");
 
 // タグからノードを取得してオブジェクト生成
-const $btn = document.getElementsByTagName(`button`);
+const $buttons = document.getElementsByTagName(`button`);
 
-console.log($btn);
+
 // 変数作成 （「questions」のインデックス・ボタンオブジェクトのlength・最後に表示する点数）
 let questionIndex = 0;
-let buttonLength = $btn.length;
+let buttonLength = $buttons.length;
 let score = 0
 
 // ボタンタグのテキストに配列を代入
 for(let i = 0;i<questions[0].choice.length; i++){
-    $btn[i].textContent = questions[0].choice[i];
+    $buttons[i].textContent = questions[0].choice[i];
 }
 
 
@@ -58,11 +58,11 @@ function displayAnswer(answer){
     answerBox.appendChild(p);
     p.appendChild(ansewerText);
     alert(answer);
-    reset(answerBox,p)
+    reset(answerBox)
 }
 
 // 次の準備
-function reset(answerBox,p){
+function reset(answerBox){
     questionIndex++;
     //クイズ終了後に行う動作
     if (questionIndex === questions.length) {
@@ -71,7 +71,7 @@ function reset(answerBox,p){
         =`クイズは終了です。
         合計得点は${score}点です。`;
         //選択肢のボタンを非表示
-        $buttons.style.display = 'none';
+        $buttonsWrapper.style.display = 'none';
         while(answerBox.firstChild){
             answerBox.removeChild(answerBox.firstChild);
         }
@@ -82,8 +82,8 @@ function reset(answerBox,p){
         $topWrapper.appendChild(newBtn);
         newBtn.addEventListener('click',function(){//「最初からやり直す」ボタンを押した時のイベント
             questionIndex = 0;
-            $buttons.style.display = 'flex';
-            $buttons.style.justifyContent = 'center';
+            $buttonsWrapper.style.display = 'flex';
+            $buttonsWrapper.style.justifyContent = 'center';
             $topWrapper.removeChild(newBtn);////「最初からやり直す」ボタンの削除
             textIn();
             score =0;
@@ -97,7 +97,7 @@ function reset(answerBox,p){
 function textIn(){
     document.getElementById('questionContents').textContent =questions[questionIndex].question;
     for(let i = 0;i<buttonLength; i++){
-    $btn[i].textContent = questions[questionIndex].choice[i];
+    $buttons[i].textContent = questions[questionIndex].choice[i];
 }
 }
 

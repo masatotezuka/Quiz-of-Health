@@ -7,16 +7,18 @@
   }
 
   button {
-    display: flex;
     border-radius: 180px;
-    // border: none;
-    box-shadow: 20px;
+    box-shadow: 0px 5px grey;
     margin: 10px;
     padding: 20px;
     font-size: 24px;
-    text-align: center;
-    align-items: center;
     background-color: honeydew;
+    cursor: pointer;
+    &:active {
+      box-shadow: none;
+      position: relative;
+      top: 5px;
+    }
   }
   p {
     text-align: center;
