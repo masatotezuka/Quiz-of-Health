@@ -1,3 +1,5 @@
+// const Swal = require('sweetalert2')
+// import Swal from 'sweetalert2'
 // クイズアプリ
 // クイズのコンテンツ
 const questions = [
@@ -38,7 +40,7 @@ for(let i = 0; i<buttonLength; i++){
 }
 
 // 正誤判定する関数
-function result(e,questions){
+function result(e){
     if (questions[questionIndex].answer === e.target.textContent) {
         score++;
         displayAnswer("正解！");
@@ -57,7 +59,19 @@ function displayAnswer(answer){
     $topWrapper.appendChild(answerBox);
     answerBox.appendChild(p);
     p.appendChild(ansewerText);
-    alert(answer);
+    if(answer==="正解！"){
+      Swal.fire(
+        '',
+        answer,
+        'success'
+        );
+    }else{
+      Swal.fire(
+        '',
+        answer,
+        'error'
+        );
+    }
     reset(answerBox)
 }
 
@@ -82,8 +96,8 @@ function reset(answerBox){
         $topWrapper.appendChild(newBtn);
         newBtn.addEventListener('click',function(){//「最初からやり直す」ボタンを押した時のイベント
             questionIndex = 0;
-            $buttonsWrapper.style.display = 'flex';
-            $buttonsWrapper.style.justifyContent = 'center';
+            $buttonsWrapper.style.display = 'block';
+            // $buttonsWrapper.style.justifyContent = 'center';
             $topWrapper.removeChild(newBtn);////「最初からやり直す」ボタンの削除
             textIn();
             score =0;
