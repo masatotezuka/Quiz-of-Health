@@ -79,8 +79,6 @@ for (let i = 0; i < buttonLength; i++) {
         "beforeend",
         `<button id="new-button">最初からやり直す</button>`
       );
-      //３つのボタンを消す
-      //最初からやり直すボタンを作成
       //ボタンを押したら
       return;
     }
