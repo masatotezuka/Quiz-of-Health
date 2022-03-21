@@ -131,12 +131,9 @@ function displayAnswerInParagraph(
   }
 }
 
-//次の問題
 function displayNextQuestion() {
   questionTitle.innerText = questionContents[questionLength].question;
   for (let i = 0; i < 3; i++) {
     answerButtons[i].innerText = questionContents[questionLength].choice[i];
   }
 }
-
-console.log(answerButtons);
