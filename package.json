@@ -1,0 +1,27 @@
+{
+  "name": "quizapp",
+  "version": "1.0.0",
+  "description": "JSを使った簡単なクイズアプリです。",
+  "main": "index.js",
+  "dependencies": {
+    "sweetalert2": "^11.4.6",
+    "typescript": "^4.6.2"
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masatotezuka/Quiz-of-Health.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masatotezuka/Quiz-of-Health/issues"
+  },
+  "homepage": "https://github.com/masatotezuka/Quiz-of-Health#readme"
+}
