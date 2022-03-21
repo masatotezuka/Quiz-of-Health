@@ -36,7 +36,7 @@ const questions = [
 ];
 
 //質問文のテキストを代入
-document.getElementById("questionContents").textContent = questions[0].question;
+document.getElementById("question-title").textContent = questions[0].question;
 
 //idからノードを取得
 const $topWrapper = document.getElementById("top-wrapper");
@@ -60,7 +60,7 @@ for (let i = 0; i < buttonLength; i++) {
   document
     .getElementsByTagName(`button`)
     [i].addEventListener(`click`, function (e) {
-      result(e, questions); //正誤判定
+      result(e); //正誤判定
     });
 }
 
@@ -99,9 +99,7 @@ function reset(answerBox) {
   //クイズ終了後に行う動作
   if (questionIndex === questions.length) {
     //質問の部分に結果表示
-    document.getElementById(
-      "questionContents"
-    ).textContent = `クイズは終了です。
+    document.getElementById("question-title").textContent = `クイズは終了です。
         合計得点は${score}点です。`;
     //選択肢のボタンを非表示
     $buttonsWrapper.style.display = "none";
@@ -129,7 +127,7 @@ function reset(answerBox) {
 
 // 次のテキストを入れる。
 function textIn() {
-  document.getElementById("questionContents").textContent =
+  document.getElementById("question-title").textContent =
     questions[questionIndex].question;
   for (let i = 0; i < buttonLength; i++) {
     $buttons[i].textContent = questions[questionIndex].choice[i];
