@@ -1,7 +1,3 @@
-// import Swal from "sweetalert2";
-// export { Swal };
-//https://sweetalert2.github.io/#examples
-// const Swal = require("sweetalert2");
 const questionContents = [
   {
     question:
@@ -41,6 +37,7 @@ const answerButtons = document.getElementsByTagName("button");
 for (let i = 0; i < 3; i++) {
   answerButtons[i].innerHTML = questionContents[0].choice[i];
 }
+
 const buttonLength = 3;
 let questionLength = 0;
 let score = 0;
@@ -64,43 +61,57 @@ for (let i = 0; i < buttonLength; i++) {
         answerBox
       );
     }
+
     questionLength++;
+
     if (questionLength === questionContents.length) {
-      questionLength = 0;
-      questionTitle.innerText = `正解数は${score}問です。`;
-      const buttonsWrapper = document.getElementById(
-        "buttons-wrapper"
-      )! as HTMLDivElement;
-      for (let i = 0; i < buttonLength; i++) {
-        answerButtons[i].style.display = "none";
-      }
-      answerBox.remove();
-      buttonsWrapper.insertAdjacentHTML(
-        "beforeend",
-        `<button id="new-button">最初からやり直す</button>`
-      );
-      //ボタンを押したら
+      resetQuiz(answerBox);
       return;
     }
-    console.log(score);
     displayNextQuestion();
     return;
   });
 }
 
-const resetButton = document.getElementById("new-button")! as HTMLButtonElement;
-resetButton.addEventListener("click", function () {
-  score = 0;
-  for (let i = 0; i < buttonLength; i++) {
-    answerButtons[i].style.display = "inline";
-  }
-  const answerWrapper = document.getElementById(
-    "answer-wrapper"
+function resetQuiz(answerBox: HTMLDivElement) {
+  questionLength = 0;
+  const buttonsWrapper = document.getElementById(
+    "buttons-wrapper"
   )! as HTMLDivElement;
-  answerWrapper.insertAdjacentHTML("beforeend", `<div id="answer-box"></div>`);
-  displayNextQuestion();
-  resetButton.remove();
-});
+
+  questionTitle.innerText = `正解数は${score}問です。`;
+  for (let i = 0; i < buttonLength; i++) {
+    answerButtons[i].style.display = "none";
+  }
+
+  answerBox.remove();
+  buttonsWrapper.insertAdjacentHTML(
+    "beforeend",
+    `<button id="new-button">最初からやり直す</button>`
+  );
+  const resetButton = document.getElementById(
+    "new-button"
+  )! as HTMLButtonElement;
+
+  resetButton.addEventListener("click", function () {
+    score = 0;
+    for (let i = 0; i < buttonLength; i++) {
+      answerButtons[i].style.display = "inline";
+    }
+
+    const answerWrapper = document.getElementById(
+      "answer-wrapper"
+    )! as HTMLDivElement;
+    answerWrapper.insertAdjacentHTML(
+      "beforeend",
+      `<div id="answer-box"></div>`
+    );
+
+    displayNextQuestion();
+    resetButton.remove();
+  });
+}
+
 // 正誤表示
 function displayAnswer(
   answerMessage: string,
