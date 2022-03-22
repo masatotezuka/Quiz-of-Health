@@ -1,8 +1,4 @@
 "use strict";
-// import Swal from "sweetalert2";
-// export { Swal };
-//https://sweetalert2.github.io/#examples
-// const Swal = require("sweetalert2");
 const questionContents = [
     {
         question: "Q1. 次の成分のうち不足していると腰痛のリスクが上がる成分はどれ？",
@@ -57,35 +53,34 @@ for (let i = 0; i < buttonLength; i++) {
         }
         questionLength++;
         if (questionLength === questionContents.length) {
-            questionLength = 0;
-            questionTitle.innerText = `正解数は${score}問です。`;
-            const buttonsWrapper = document.getElementById("buttons-wrapper");
-            for (let i = 0; i < buttonLength; i++) {
-                answerButtons[i].style.display = "none";
-            }
-            answerBox.remove();
-            buttonsWrapper.insertAdjacentHTML("beforeend", `<button id="new-button">最初からやり直す</button>`);
-            //３つのボタンを消す
-            //最初からやり直すボタンを作成
-            //ボタンを押したら
+            resetQuiz(answerBox);
             return;
         }
-        console.log(score);
         displayNextQuestion();
         return;
     });
 }
-const resetButton = document.getElementById("new-button");
-resetButton.addEventListener("click", function () {
-    score = 0;
+function resetQuiz(answerBox) {
+    questionLength = 0;
+    const buttonsWrapper = document.getElementById("buttons-wrapper");
+    questionTitle.innerText = `正解数は${score}問です。`;
     for (let i = 0; i < buttonLength; i++) {
-        answerButtons[i].style.display = "inline";
+        answerButtons[i].style.display = "none";
     }
-    const answerWrapper = document.getElementById("answer-wrapper");
-    answerWrapper.insertAdjacentHTML("beforeend", `<div id="answer-box"></div>`);
-    displayNextQuestion();
-    resetButton.remove();
-});
+    answerBox.remove();
+    buttonsWrapper.insertAdjacentHTML("beforeend", `<button id="new-button">最初からやり直す</button>`);
+    const resetButton = document.getElementById("new-button");
+    resetButton.addEventListener("click", function () {
+        score = 0;
+        for (let i = 0; i < buttonLength; i++) {
+            answerButtons[i].style.display = "inline";
+        }
+        const answerWrapper = document.getElementById("answer-wrapper");
+        answerWrapper.insertAdjacentHTML("beforeend", `<div id="answer-box"></div>`);
+        displayNextQuestion();
+        resetButton.remove();
+    });
+}
 // 正誤表示
 function displayAnswer(answerMessage, answerContent, answerBox) {
     window.alert(answerMessage);
@@ -99,11 +94,9 @@ function displayAnswerInParagraph(answerMessage, answerText, answerBox) {
         answerBox.insertAdjacentHTML("beforeend", `<p>第${questionLength + 1}問は${answerMessage}です。正解は「${answerText}」です。</p>`);
     }
 }
-//次の問題
 function displayNextQuestion() {
     questionTitle.innerText = questionContents[questionLength].question;
     for (let i = 0; i < 3; i++) {
         answerButtons[i].innerText = questionContents[questionLength].choice[i];
     }
 }
-console.log(answerButtons);
